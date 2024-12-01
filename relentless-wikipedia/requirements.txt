@@ -15,3 +15,5 @@ langchain-google-genai
 uvicorn
 jinja2
 pathlib
+uvicorn[standard]
+websockets
