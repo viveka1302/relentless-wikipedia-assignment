@@ -2,64 +2,18 @@ import asyncio
 from fastapi import WebSocket, WebSocketDisconnect, APIRouter
 from fastapi.responses import HTMLResponse
 from cockroachDB.factory import SavedArticles
+from fastapi.templating import Jinja2Templates
+from fastapi.requests import Request
+from pathlib import Path
 
 socketroute= APIRouter()
 
+templates = Jinja2Templates(directory=str(Path(__file__).parent / "templates"))
+
 # Serve the dashboard HTML page
 @socketroute.get("/activity-dashboard", response_class=HTMLResponse)
-async def get_dashboard():
-    html_content = """
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Real-Time User Activity Dashboard</title>
-        <style>
-            body { font-family: Arial, sans-serif; }
-            #activity-list { margin-top: 20px; }
-            .activity-item { margin-bottom: 10px; }
-        </style>
-    </head>
-    <body>
-
-    <h1>Real-Time User Activity Dashboard</h1>
-    <div id="activity-list"></div>
-
-    <script>
-        // Connect to the WebSocket server
-        const socket = new WebSocket("wss://relentless-wikipedia-assignment.onrender.com/ws/user-activity");
-
-        socket.onmessage = function(event) {
-            const activities = JSON.parse(event.data);
-            const activityList = document.getElementById('activity-list');
-            
-            // Clear the previous activity list
-            activityList.innerHTML = '';
-
-            // Display the new activity list
-            activities.forEach(activity => {
-                const activityItem = document.createElement('div');
-                activityItem.classList.add('activity-item');
-                activityItem.innerHTML = `<strong>Articles saved today ${activity.title}</strong> - ${activity.url} -saved by: ${activity.savedby} <em>${activity.tags}</em>`;
-                activityList.appendChild(activityItem);
-            });
-        };
-
-        socket.onclose = function(event) {
-            console.log("WebSocket closed");
-        };
-
-        socket.onerror = function(error) {
-            console.error("WebSocket error", error);
-        };
-    </script>
-
-    </body>
-    </html>
-    """
-    return HTMLResponse(content=html_content)
-
+async def get_dashboard(request: Request):
+    return templates.TemplateResponse("activity_dashboard.html", {"request": request})
 # WebSocket for real-time user activity updates
 async def fetch_user_activity(websocket: WebSocket):
     try:
