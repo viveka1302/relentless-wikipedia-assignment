@@ -1,7 +1,7 @@
 passlib
 wikipedia-api
 sqlalchemy-cockroachdb
-psycopg2
+psycopg2-binary
 pydantic
 fastapi
 jwt
