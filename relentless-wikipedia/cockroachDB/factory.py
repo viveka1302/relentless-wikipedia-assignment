@@ -123,3 +123,13 @@ class SavedArticles():
         except Exception as e:
             print(e)
             conn.rollback()
+
+
+    def user_activity(self):
+        try:
+            query= "SELECT * FROM savedarticles ORDER BY createdat DESC LIMIT 10;"
+            query_results= conn.execute(text(query))
+            return query_results
+        except Exception as e:
+            print(e)
+            conn.rollback()
