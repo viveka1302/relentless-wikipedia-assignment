@@ -1,10 +1,10 @@
 passlib
 wikipedia-api
 sqlalchemy-cockroachdb
-psycopg2-binary
+psycopg2
 pydantic
 fastapi
-PyJWT
+jwt
 sqlalchemy
 datetime
 pydantic[email]
@@ -13,3 +13,5 @@ bcrypt
 langchain
 langchain-google-genai
 uvicorn
+jinja2
+pathlib
