@@ -1,0 +1,15 @@
+passlib
+wikipedia-api
+sqlalchemy-cockroachdb
+psycopg2
+pydantic
+fastapi
+jwt
+sqlalchemy
+datetime
+pydantic[email]
+python-multipart
+bcrypt
+langchain
+langchain-google-genai
+uvicorn
