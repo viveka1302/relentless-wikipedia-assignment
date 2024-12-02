@@ -28,7 +28,7 @@ async def fetch_user_activity(websocket: WebSocket):
             for i in ac_list:
                 activityDict.append(dict(zip(col, i)))
             # Send data to WebSocket client
-            data = [{"title": activity["title"], "url": activity["url"], "tags": activity["tags"], "savedBy": activity["savedby"] } for activity in activityDict]
+            data = [{"title": activity["title"], "url": activity["url"], "tags": activity["tags"], "savedby": activity["savedby"] } for activity in activityDict]
             await websocket.send_json(data)
             
             # Wait for a short period before refreshing data (polling every 5 seconds)
