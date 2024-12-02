@@ -4,7 +4,7 @@ sqlalchemy-cockroachdb
 psycopg2
 pydantic
 fastapi
-jwt
+PyJWT
 sqlalchemy
 datetime
 pydantic[email]
